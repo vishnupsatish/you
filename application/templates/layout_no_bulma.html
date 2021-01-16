@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+
+
+    {% if title %}
+    <title>You - {{ title }}</title>
+    {% else %}
+    <title>You</title>
+    {% endif %}
+</head>
+
+<body>
+    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+
+</html>

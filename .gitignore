@@ -1,2 +1,7 @@
 */**/__pycache__
 .vscode/
+venv/
+client_secret_271900468724-l9ihl874o1m3nrjkfmk590uljiu5pk1k.apps.googleusercontent.com.json
+test_google_photos.py
+application/site.db
+

@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block content %} 
+
+<h1 class="title is-3 mod-font">Create a New Goal</h1>
+
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <div class="field">
+            {{ form.goal.label(class="label") }}
+            {% if form.goal.errors %}
+                {{ form.goal(class="input is-medium is-danger") }}
+                <div class="invalid-feedback">
+                    {% for error in form.goal.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.goal(class="input is-medium") }}
+            {% endif %}
+        </div>
+        <div class="field">
+            {{ form.start_date.label(class="label") }}
+            {% if form.start_date.errors %}
+                {{ form.start_date(class="input is-medium is-danger") }}
+                <div class="invalid-feedback">
+                    {% for error in form.start_date.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.start_date(class="input is-medium") }}
+            {% endif %}
+        </div>
+        <div class="field">
+            {{ form.end_date.label(class="label") }}
+            {% if form.end_date.errors %}
+                {{ form.end_date(class="input is-medium is-danger") }}
+                <div class="invalid-feedback">
+                    {% for error in form.end_date.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.end_date(class="input is-medium") }}
+            {% endif %}
+        </div>
+        <columns>
+            <div class="columns">
+                <div class="column is-6">
+                    
+                </div>
+            </div>
+        <div class="field">
+			{{ form.steps.label(class="mod-font") }}
+
+			{% if form.steps.errors %}
+			{{ form.steps(id="steps", style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px;",
+			placeholder="Write something here!") }}
+			<div class="invalid-feedback">
+				{% for error in form.steps.errors %}
+				<p class="help is-danger">{{ error }}</p>
+				{% endfor %}
+			</div>
+			{% else %}
+			{{ form.steps(id="steps", class="textarea mt-2", style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px;",
+			placeholder="Write something here!") }}
+			{% endif %}
+		</div>
+        <div class="field">
+			{{ form.reflection.label(class="mod-font") }}
+
+			{% if form.reflection.errors %}
+			{{ form.reflection(id="reflection", style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px;",
+			placeholder="Write your steps to achieve your goal!") }}
+			<div class="invalid-feedback">
+				{% for error in form.reflection.errors %}
+				<p class="help is-danger">{{ error }}</p>
+				{% endfor %}
+			</div>
+			{% else %}
+			{{ form.reflection(id="reflection", class="textarea mt-2", style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px;",
+			placeholder="How did it go?") }}
+			{% endif %}
+		</div>
+    </fieldset>
+    <div class="field mt-5">
+		{{ form.submit(class="button is-fullwidth is-info") }}
+	</div>
+</form>
+
+{% endblock %}
