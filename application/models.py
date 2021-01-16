@@ -29,7 +29,8 @@ class Year(db.Model):
 
 class Month(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Integer, nullable=False)
+    number = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String, nullable=False)
     days = db.relationship('Day', backref='month', lazy=True)
     year_id = db.Column(db.Integer, db.ForeignKey('year.id'), nullable=False)
 
@@ -77,7 +78,9 @@ class MainEventEntry(db.Model):
 class GoalEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     goal = db.Column(db.String, nullable=False)
-    end_date = db.Column(db.DateTime, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=True)
+    end_date = db.Column(db.DateTime, nullable=True)
+    steps = db.Column(db.String, nullable=True)
+    reflection = db.Column(db.String, nullable=True)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-

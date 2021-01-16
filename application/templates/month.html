@@ -1,0 +1,61 @@
+{% extends "layout_alternate.html" %}
+
+{% block head %}
+
+<style>
+    .hero {
+         transition: all .2s ease-in-out; 
+    }
+    .hero:hover { 
+        padding-left: 70px;
+        transform: scale(1.1);
+    }
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+<section class="hero is-primary is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          2020
+        </h1>
+        <h2 class="subtitle">
+          Primary subtitle
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-info">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          2019
+        </h1>
+        <h2 class="subtitle">
+          Primary subtitle
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-success is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          2019
+        </h1>
+        <h2 class="subtitle">
+          Primary subtitle
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+
+{% endblock %}

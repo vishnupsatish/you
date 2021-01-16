@@ -1,0 +1,103 @@
+{% extends "layout_alternate.html" %}
+
+{% block head %}
+
+<style>
+    .hero {
+         transition: all .2s ease-in-out; 
+    }
+    .hero:hover { 
+        padding-left: 70px;
+        transform: scale(1.1);
+    }
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar is-transparent">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <h3 class="title is-3">You.</h3>
+    </a>
+    <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="https://bulma.io/">
+        Summary
+      </a>
+      <a class="navbar-item" href="https://bulma.io/">
+        Memory
+      </a>
+      <a class="navbar-item" href="{{ url_for('entry_home') }}">
+        Entries
+      </a>
+
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button is-info" href="{{ url_for('entry_home') }}">
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+              <span>New Entry</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          2020
+        </h1>
+        <h2 class="subtitle">
+          Primary subtitle
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-info">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          2019
+        </h1>
+        <h2 class="subtitle">
+          Primary subtitle
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-success is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          2019
+        </h1>
+
+      </div>
+    </div>
+  </section>
+
+
+
+{% endblock %}

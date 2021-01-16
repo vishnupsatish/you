@@ -1,0 +1,42 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <h3 class="title is-3">You.</h3>
+    </a>
+    <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="https://bulma.io/">
+        Summary
+      </a>
+      <a class="navbar-item" href="https://bulma.io/">
+        Memory
+      </a>
+      <a class="navbar-item" href="{{ url_for('entry_home') }}">
+        Entries
+      </a>
+
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button is-info" href="{{ url_for('entry_home') }}">
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+              <span>New Entry</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
