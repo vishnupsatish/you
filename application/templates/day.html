@@ -2,12 +2,100 @@
 
 {% block head %}
 
+<style>
+    .column {
+         transition: all .2s ease-in-out; 
+    }
+    .column:hover { 
+        transform: scale(1.1);
+    }
+
+</style>
+
 
 {% endblock %}
 
 {% block content %}
 
 
+  {% include 'includes/transparent_navbar.html' %}
+
+  <h2 class="title is-2 has-text-centered">{{ days[0].month.name }}, {{ days[0].month.year.name }}</h2>
+
+    <div class="columns is-multiline is-gapless background-3 mb-0">
+
+        {% for i in range(days|length) %}
+
+        {% if i % 5 == 0 %}
+        <div class="column background-1 is-2">
+        <section class="hero is-bold">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                {{ days[i].name }}, the {{ ordinals[i] }}
+              </h1>
+            </div>
+          </div>
+        </section>
+    </div>
+
+        {% elif i % 5 == 1 %}
+        <div class="column background-2 is-2">
+
+        <section class="hero is-bold">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                {{ days[i].name }}, the {{ ordinals[i] }}              </h1>
+            </div>
+          </div>
+        </section>
+    </div>
+        {% elif i % 5 == 2 %}
+        <div class="column background-3 is-2">
+
+        <section class="hero is-bold">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                {{ days[i].name }}, the {{ ordinals[i] }}              </h1>
+              </h1>
+            </div>
+          </div>
+        </section>
+    </div>
+        {% elif i % 5 == 3 %}
+        <div class="column background-4 is-2">
+
+        <section class="hero is-bold">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                {{ days[i].name }}, the {{ ordinals[i] }}              </h1>
+              </h1>
+            </div>
+          </div>
+        </section>
+    </div>
+        {% elif i % 5 == 4 %}
+        <div class="column background-5 is-2">
+
+        <section class="hero is-bold">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                {{ days[i].name }}, the {{ ordinals[i] }}              </h1>
+            </div>
+          </div>
+        </section>
+    </div>
+
+      
+        {% endif %}
+
+        {% endfor %}
+        
+    </div>
 
 
 

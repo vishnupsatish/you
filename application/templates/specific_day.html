@@ -1,0 +1,97 @@
+{% extends "layout_alternate.html" %}
+
+{% block head %}
+
+<style>
+    .hero {
+         transition: all .2s ease-in-out; 
+    }
+    .hero:hover { 
+        padding-left: 70px;
+        transform: scale(1.1);
+    }
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+  {% include 'includes/transparent_navbar.html' %}
+
+
+  <h2 class="title is-2 has-text-centered">{{ day.name }} - {{ day.month.name }} {{ day.date }}, {{ day.month.year.name }}</h2>
+
+    <h2 class="title is-4 has-text-centered">New Entry</h2>
+
+    <div class="columns ml-6">
+        <div class="column is-2">
+
+            <a>
+            <div class="card background-2">
+                <h1 class="has-text-centered is-3 title mt-4">Diary</h1>
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        <img src="https://images.unsplash.com/photo-1594103365930-d95e5a456f51?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            alt="Diary image">
+                    </figure>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item">Add A Diary Entry</a>
+                </footer>
+            </div>
+        </a>
+        </div>
+
+            <div class="column is-2">
+
+                <a>
+                    <div class="card background-1">
+                        <h1 class="has-text-centered is-3 title mt-4">Image</h1>
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="https://images.unsplash.com/photo-1594103365930-d95e5a456f51?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                    alt="Diary image">
+                            </figure>
+                        </div>
+                        <footer class="card-footer">
+                            <a class="card-footer-item">Add A Diary Entry</a>
+                        </footer>
+                    </div>
+                </a>
+
+
+        </div>
+
+        <div class="column is-2">
+            <form method="POST" action="">
+                <div class="field mt-5">
+                    <div class="buttons is-centered">
+                        <button type="submit" class="button" name="5">
+                            <i class="far fa-grin-beam fa-2x" style="color:green;"></i>
+                        </button>
+                        <button type="submit" class="button" name="4">
+                            <i class="far fa-smile fa-2x" style="color:#99cc00;"></i>
+                        </button>
+                        <button type="submit" class="button" name="3">
+                            <i class="far fa-meh fa-2x" style="color:#cccc00;"></i>
+                        </button>
+                        <button type="submit" class="button" name="2">
+                            <i class="far fa-frown fa-2x" style="color:orange;"></i>
+                        </button>
+                        <button type="submit" class="button" name="1">
+                            <i class="far fa-angry fa-2x" style="color:red;"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="title is-4 has-text-centered">Your Entries</h2>
+
+
+
+{% endblock %}

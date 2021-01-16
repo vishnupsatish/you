@@ -10,6 +10,7 @@
         padding-left: 70px;
         transform: scale(1.1);
     }
+
 </style>
 
 
@@ -17,44 +18,76 @@
 
 {% block content %}
 
-<section class="hero is-primary is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          2020
-        </h1>
-        <h2 class="subtitle">
-          Primary subtitle
-        </h2>
-      </div>
-    </div>
-  </section>
 
-  <section class="hero is-info">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          2019
-        </h1>
-        <h2 class="subtitle">
-          Primary subtitle
-        </h2>
-      </div>
-    </div>
-  </section>
+  {% include 'includes/transparent_navbar.html' %}
 
-  <section class="hero is-success is-bold">
+  <h2 class="title is-2 has-text-centered">{{ months[0].year.name }}</h2>
+
+  {% for i in range(months|length) %}
+  {% if i % 6 == 0 %}
+  <a class="hero background-1 is-bold" href="{{ url_for('day', month=months[i].name, year=months[i].year.name) }}">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          2019
+          {{ months[i].name }}
         </h1>
-        <h2 class="subtitle">
-          Primary subtitle
-        </h2>
       </div>
     </div>
-  </section>
+  </a>
+  {% elif i % 6 == 1 %}
+  <a class="hero background-2 is-bold" href="{{ url_for('day', month=months[i].name, year=months[i].year.name) }}">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ months[i].name }}
+        </h1>
+      </div>
+    </div>
+  </a>
+  {% elif i % 6 == 2 %}
+  <a class="hero background-3 is-bold" href="{{ url_for('day', month=months[i].name, year=months[i].year.name) }}">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ months[i].name }}
+        </h1>
+      </div>
+    </div>
+  </a>
+  {% elif i % 6 == 3 %}
+  <a class="hero background-4 is-bold" href="{{ url_for('day', month=months[i].name, year=months[i].year.name) }}">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ months[i].name }}
+        </h1>
+      </div>
+    </div>
+  </a>
+  {% elif i % 6 == 4 %}
+  <a class="hero background-5 is-bold" href="{{ url_for('day', month=months[i].name, year=months[i].year.name) }}">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ months[i].name }}
+        </h1>
+      </div>
+    </div>
+  </a>
+  {% elif i % 6 == 5 %}
+  <a class="hero background-6 is-bold" href="{{ url_for('day', month=months[i].name, year=months[i].year.name) }}">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ months[i].name }}
+        </h1>
+      </div>
+    </div>
+  </a>
+
+
+  {% endif %}
+  {% endfor %}
 
 
 

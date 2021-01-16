@@ -58,15 +58,46 @@ def home():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
-    years = Year.query.all().order_by(number)
-    return render_template('home.html', title="Home")
+    years = list(Year.query.order_by(Year.name.desc()).all())
+    return render_template('home.html', title="Home", years=years)
 
 
 @app.route("/<int:year>/months")
-def month(year):
+def months(year):
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
-    return render_template('month.html', title="Month")
+
+    months = list(Month.query.order_by(Month.number).filter((Month.year.has(name=year))))
+
+    return render_template('month.html', title="Months", months=months)
+
+
+SUFFIXES = {1: 'st', 2: 'nd', 3: 'rd'}
+def ordinal(num):
+    if 10 <= num % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = SUFFIXES.get(num % 10, 'th')
+    return str(num) + suffix
+
+
+@app.route("/<int:year>/month/<string:month>/days")
+def day(year, month):
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    month_object = Month.query.order_by(Month.number).filter((Month.year.has(name=year)), Month.name==month).first()
+    print(month_object)
+    days = list(Day.query.order_by(Day.date).filter_by(month=month_object))
+
+    print(days)
+    ordinals = []
+
+    for d in days:
+        ordinals.append(ordinal(d.date))
+
+
+    return render_template('day.html', title="Days", days=days, ordinals=ordinals)
 
 
 @app.route("/month_summary")
@@ -76,25 +107,32 @@ def month_summary():
     return render_template('month_summary.html', title="Month Summary")
 
 
-@app.route("/entry_home")
+@app.route("/entry_home", methods=["GET", "POST"])
 def entry_home():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     return render_template('entry_home.html', title="Entry Home")
 
 
-@app.route("/day")
-def day():
-    if not current_user.is_authenticated:
-        return redirect(url_for('login'))
-    return render_template('day.html', title="Day")
 
 
-@app.route("/new_diary_entry")
+
+@app.route("/new_diary_entry", methods=['GET', 'POST'])
 def new_diary_entry():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
+
+    # date = request.args.get('date')
+    # if not date:
+    #     date = 
+
     form = NewDiaryEntryForm()
+    if form.validate_on_submit():
+        diary_entry = DiaryEntry(title=form.title.data, content=form.text.data)
+        db.session.add(diary_entry)
+        db.session.commit()
+        flash("Diary entry created successfully.", "is-success")
+        return redirect(url_for("home"))
     return render_template('new_diary_entry.html', title="New Diary Entry", form=form)
 
 @app.route("/add_goal_entry")
@@ -103,3 +141,18 @@ def add_goal_entry():
         return redirect(url_for('login'))
     form = NewGoalForm()
     return render_template('add_goal_entry.html', title="New Goal Entry", form=form)
+
+
+@app.route("/<int:year>/month/<string:month>/day/<int:day>")
+def specfic_day(year, month, day):
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    month_object = Month.query.order_by(Month.number).filter((Month.year.has(name=year)), Month.name==month).first()
+    print(month_object)
+    day = Day.query.filter_by(month=month_object, date=day).first()
+
+    print(day)
+
+
+    return render_template('specific_day.html', title="Day", day=day)

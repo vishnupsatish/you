@@ -2,27 +2,34 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    {% if title %}
-    <title>You - {{ title }}</title>
-    {% else %}
-    <title>You</title>
-    {% endif %}
-    {% block head %}{% endblock %}
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Hachi+Maru+Pop&family=Indie+Flower&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-calendar@6.0.9/dist/css/bulma-calendar.min.css">
+  {% if title %}
+  <title>You - {{ title }}</title>
+  {% else %}
+  <title>You</title>
+  {% endif %}
+  {% block head %}{% endblock %}
 
 </head>
 
 <body>
-    {% block content %}{% endblock %}
+  {% block content %}{% endblock %}
 
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bulma-calendar@6.0.9/dist/js/bulma-calendar.min.js"></script>
+
 </body>
 
 </html>

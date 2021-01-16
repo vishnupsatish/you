@@ -2,7 +2,7 @@ from application import db
 from datetime import datetime, timedelta
 from application.models import *
 
-
+db.create_all()
 
 numdays = 18644
 base = datetime.today()

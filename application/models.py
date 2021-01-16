@@ -49,6 +49,7 @@ class Day(db.Model):
 
 class DiaryEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
