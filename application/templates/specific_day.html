@@ -12,7 +12,8 @@
     }
 
     hr {
-        border-color: black; background-color: black;
+        border-color: black;
+        background-color: black;
     }
 </style>
 
@@ -34,7 +35,7 @@
 
             <h2 class="title is-4 has-text-centered" style="font-family: 'Cutive Mono', monospace;">Add a New Entry</h2>
 
-            <div class="columns ml-6 mr-6">
+            <div class="columns">
                 <div class="column is-2">
 
                     <a
@@ -49,7 +50,9 @@
                                 </figure>
                             </div>
                             <footer class="card-footer">
-                                <a class="card-footer-item">Add a Diary Entry</a>
+                                <a class="card-footer-item"
+                                    href="{{ url_for('new_diary_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">Add
+                                    a Diary Entry</a>
                             </footer>
                         </div>
                     </a>
@@ -57,9 +60,11 @@
 
                 <div class="column is-2">
 
-                    <a>
+                    <a
+                        href="{{ url_for('add_photo_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">
                         <div class="card background-1">
-                            <h1 class="has-text-centered is-3 title mt-4" style="font-family: 'Lobster', cursive;">Images
+                            <h1 class="has-text-centered is-3 title mt-4" style="font-family: 'Lobster', cursive;">
+                                Images
                             </h1>
                             <div class="card-image">
                                 <figure class="image is-4by3">
@@ -68,7 +73,9 @@
                                 </figure>
                             </div>
                             <footer class="card-footer">
-                                <a class="card-footer-item">Add an image</a>
+                                <a class="card-footer-item"
+                                    href="{{ url_for('add_photo_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">Add
+                                    an image</a>
                             </footer>
                         </div>
                     </a>
@@ -76,7 +83,7 @@
 
                 </div>
 
-                <div class="column is-6">
+                <div class="column is-4">
                     <div class="card background-4">
                         <h3 class="has-text-centered is-3 title mt-4 mb-0"
                             style="font-family: 'Hachi Maru Pop', cursive;">How are you feeling?</h3>
@@ -110,7 +117,8 @@
                 </div>
 
                 <div class="column is-2">
-                    <a href="{{ url_for('add_goal_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">
+                    <a
+                        href="{{ url_for('add_goal_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">
                         <div class="card background-5">
                             <h1 class="has-text-centered is-3 title mt-4" style="font-family: 'Lobster', cursive;">Goals
                             </h1>
@@ -121,7 +129,29 @@
                                 </figure>
                             </div>
                             <footer class="card-footer">
-                                <a href="{{ url_for('add_goal_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}" class="card-footer-item">Add a goal</a>
+                                <a href="{{ url_for('add_goal_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}"
+                                    class="card-footer-item">Add a goal</a>
+                            </footer>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="column is-2">
+                    <a
+                        href="{{ url_for('main_event', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">
+                        <div class="card background-2">
+                            <h1 class="has-text-centered is-3 title mt-4" style="font-family: 'Lobster', cursive;">Main
+                                Events
+                            </h1>
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="https://images.unsplash.com/photo-1504199020112-921914a72fb7?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NTV8fGZpcmV3b3Jrc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                        alt="">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="{{ url_for('main_event', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}"
+                                    class="card-footer-item">Add an Event</a>
                             </footer>
                         </div>
                     </a>
@@ -135,8 +165,9 @@
 <section class="hero background-2">
     <div class="hero-body">
         <div class="container">
-            <h2 class="title is-4 has-text-centered" style="font-family: 'Cutive Mono', monospace;">Your Past Entries</h2>
-            
+            <h2 class="title is-4 has-text-centered" style="font-family: 'Cutive Mono', monospace;">Entries from the day
+            </h2>
+
 
 
 
@@ -146,34 +177,45 @@
 
                     {% for entry in left_side %}
                     {% if entry[2]|string == 'DiaryEntry' %}
-                      <article class="tile is-child notification {{ entry[1] }}">
+                    <article class="tile is-child notification {{ entry[1] }}">
                         <p class="title">{{ entry[0].title }}</p>
                         <p class="subtitle">Diary Entry</p>
 
                         <p class="content">{{ entry[0].content }}</p>
                         <hr>
                         <p class="content">Your mood for the diary entry:</p>
-                        <img height="40px" width="40px" src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].score }}.jpg" alt="">
+                        <img height="40px" width="40px"
+                            src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].score }}_emoji.png"
+                            alt="">
 
-                      </article>
+                    </article>
 
                     {% elif entry[2]|string == 'GoalEntry' %}
                     <article class="tile is-child notification {{ entry[1] }}">
-                      <p class="title">{{ entry[0].goal }}</p>
-                      <p class="subtitle">Goal</p>
+                        <p class="title">{{ entry[0].goal }}</p>
+                        <p class="subtitle">Goal</p>
 
-                      <p class="content">{{ entry[0].steps }}</p>
+                        <p class="content">{{ entry[0].steps }}</p>
                     </article>
 
-                  {% elif entry[2]|string == 'MoodEntry' %}
-                  <article class="tile is-child notification {{ entry[1] }}">
-                    <p class="title">Current Mood</p>
+                    {% elif entry[2]|string == 'MoodEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">Current Mood</p>
 
-                    <p class="content">
-                        <img src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].mood }}.jpg" alt="">
-                    </p>
-                  </article>
-                {% endif %}
+                        <p class="content">
+                            <img src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].mood }}_emoji.png"
+                                alt="">
+                        </p>
+                    </article>
+                    {% elif entry[2]|string == 'MainEventEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].content }}</p>
+                        <p class="subtitle">Main Event</p>
+
+                        <p class="content">
+                            {{ entry[0].description }} </p>
+                    </article>
+                    {% endif %}
 
 
                     {% endfor %}
@@ -183,55 +225,56 @@
 
                     {% for entry in right_side %}
                     {% if entry[2]|string == 'DiaryEntry' %}
-                      <article class="tile is-child notification {{ entry[1] }}">
+                    <article class="tile is-child notification {{ entry[1] }}">
                         <p class="title">{{ entry[0].title }}</p>
                         <p class="subtitle">Diary Entry</p>
 
                         <p class="content">{{ entry[0].content }}</p>
                         <hr>
                         <p class="content">Your mood for the diary entry:</p>
-                        <img height="40px" width="40px" src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].score }}.jpg" alt="">
+                        <img height="40px" width="40px"
+                            src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].score }}_emoji.png"
+                            alt="">
 
 
-                      </article>
+                    </article>
                     {% elif entry[2]|string == 'GoalEntry' %}
                     <article class="tile is-child notification {{ entry[1] }}">
-                      <p class="title">{{ entry[0].goal }}</p>
-                      <p class="subtitle">Goal</p>
-                      <p class="content">{{ entry[0].steps }}</p>
+                        <p class="title">{{ entry[0].goal }}</p>
+                        <p class="subtitle">Goal</p>
+                        <p class="content">{{ entry[0].steps }}</p>
                     </article>
                     {% elif entry[2]|string == 'MoodEntry' %}
                     <article class="tile is-child notification {{ entry[1] }}">
-                      <p class="title">Current Mood</p>
-  
-                      <p class="content">
-                          <img src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].mood }}.jpg" alt="">
-                      </p>
+                        <p class="title">Current Mood</p>
+
+                        <p class="content">
+                            <img src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].mood }}_emoji.png"
+                                alt="">
+                        </p>
+                    </article>
+                    {% elif entry[2]|string == 'MainEventEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].content }}</p>
+                        <p class="subtitle">Main Event</p>
+
+                        <p class="content">
+                            {{ entry[0].description }} </p>
+                    </article>
+                    {% elif entry[2]|string == 'PhotosEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <img src="https://res.cloudinary.com/dnwczwamg/image/upload/v1610858360/{{ entry[0].photo }}.jpg" alt="">
+
+                        <p class="content">
+                            {{ entry[0].caption }} </p>
                     </article>
                     {% endif %}
 
                     {% endfor %}
 
-                
+
                 </div>
-              </div>
-
-
-
-            <!-- <div class="box">
-                <article class="media">
-                  <div class="media-content">
-                    <div class="content">
-                      <p>
-                        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              </div> -->
-
+            </div>
 
         </div>
     </div>

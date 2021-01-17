@@ -1,9 +1,11 @@
 import os
 import secrets
 from random import shuffle
-from datetime import datetime
+import datetime
 from flask import render_template, url_for, flash, redirect, request, abort, session
 from application import app, db, bcrypt, admin
+import cloudinary.api
+import cloudinary.uploader
 from application.forms import *
 from application.models import *
 from flask_login import login_user, current_user, logout_user, login_required
@@ -22,7 +24,7 @@ admin.add_view(ModelView(GoalEntry, db.session))
 
 @app.context_processor
 def inject_date():
-    date = datetime.today()
+    date = datetime.datetime.today()
     return dict(every_all_year=date.year, every_all_month=date.strftime("%B"), every_all_day=date.strftime('%d'))
 
 
@@ -133,7 +135,7 @@ def new_diary_entry():
 
     date = request.args.get('date')
     if not date:
-        today = datetime.today()
+        today = datetime.datetime.today()
         date = today.strftime('%B/%d/%Y')
     session['diary_entry_date'] = date
 
@@ -170,8 +172,7 @@ def new_diary_entry():
                 score = 2
 
         print(positive, negative, score, difference, pos_or_neg)
-    
-
+        
         diary_entry = DiaryEntry(title=form.title.data, content=form.text.data, pos=positive, neg=negative, day=day, score=score, user=current_user, favourite=form.favourite.data)
         db.session.add(diary_entry)
         db.session.commit()
@@ -184,7 +185,7 @@ def new_diary_entry():
 def add_goal_entry():
     date = request.args.get('date')
     if not date:
-        today = datetime.today()
+        today = datetime.datetime.today()
         date = today.strftime('%B/%d/%Y')
     session['goal_entry_date'] = date
     if not current_user.is_authenticated:
@@ -274,8 +275,57 @@ def specific_day(year, month, day):
 
     return render_template('specific_day.html', title="Day", day=day, left_side=left_side, right_side=right_side)
 
+@app.route('/add_photo_entry', methods=["GET", "POST"])
+def add_photo_entry():
+    date = request.args.get('date')
+    if not date:
+        today = datetime.datetime.today()
+        date = today.strftime('%B/%d/%Y')
+    session['photo_entry_date'] = date
+    form = NewPictureEntryForm()
+    if form.validate_on_submit():
+        month, day, year = session['photo_entry_date'].split('/')
+    
+        month_object = Month.query.order_by(Month.number).filter((Month.year.has(name=year)), Month.name==month).first()
+        day = Day.query.filter_by(month=month_object, date=day).first()
+        
+        picture_fn = generate_file_name(form.image.data)
+        picture_path = f"you/user-photos/{picture_fn}"
+        cloudinary.uploader.upload(form.image.data, public_id=picture_path)
+        
+        photo_entry = PhotosEntry(photo=picture_path, caption=form.caption.data, day_id=day.id, user_id=current_user.id)
+        db.session.add(photo_entry)
+        db.session.commit()
+        flash('Image uploaded successfully.', "success")
+        return redirect(url_for('specific_day', year=year, month=month, day=day.date))
+    return render_template("add_photo_entry.html", form=form)
 
+    
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/main_event', methods=['GET', 'POST'])
+def main_event():
+    form = MainEventsForm()
+
+    date = request.args.get('date')
+    if not date:
+        today = datetime.datetime.today()
+        date = today.strftime('%B/%d/%Y')
+    session['main_event_entry_date'] = date
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    if form.validate_on_submit():
+        month, day, year = session['main_event_entry_date'].split('/')
+
+        month_object = Month.query.order_by(Month.number).filter((Month.year.has(name=year)), Month.name==month).first()
+        day_object = Day.query.filter_by(month=month_object, date=day).first()
+
+        entry = MainEventEntry(content=form.event.data, description=form.description.data, day=day_object, user=current_user)
+        db.session.add(entry)
+        db.session.commit()
+        return redirect(url_for('specific_day', year=year, month=month, day=day))
+    return render_template('main_event.html', title="Month Event", form=form)

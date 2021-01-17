@@ -71,15 +71,16 @@ class NewDiaryEntryForm(FlaskForm):
 class NewGoalForm(FlaskForm):
     goal = StringField('Goal Summary', validators=[DataRequired()])
     steps = TextAreaField('Action Steps')
-    picture = FileField('Update Picture',  validators=[FileAllowed(['jpg','png'])])
     submit = SubmitField('Create Goal')
 
-# class MoodEntryForm(FlaskForm):
-#     very_happy = SubmitField('Very Happy')
-#     happy = SubmitField('Happy')
-#     okay = SubmitField('Okay')
-#     sad = SubmitField('Sad')
-#     very_sad = SubmitField('Very Sad')
+class NewPictureEntryForm(FlaskForm):
+    image = FileField('Upload Picture', validators=[FileAllowed(['jpg','png']), DataRequired()])
+    caption = StringField('Caption')
+    submit = SubmitField('Create')
     
-
-    # date_written = HiddenField()
+    
+class MainEventsForm(FlaskForm):
+    event = StringField("Event:", validators=[DataRequired()])
+    description = TextAreaField("Highlights of the event!", validators=[Length(max=100)])
+    submit = SubmitField('Create')
+    

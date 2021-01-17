@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block bgimage %}
+<img src="https://images.unsplash.com/photo-1491555103944-7c647fd857e6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bW91bnRhaW58ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" class="bg-image">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="title-custom is-3 black">Main Event</h1>
+
+<form method="POST" action="">
+	{{ form.hidden_tag() }}
+
+		<div class="field">
+			{{ form.event.label(class="label") }}
+			{% if form.event.errors %}
+			{{ form.event(class="input is-danger black") }}
+				{% for error in form.event.errors %}
+				<p class="help is-danger">{{ error }}</p>
+				{% endfor %}
+			{% else %}
+			{{ form.event(class="input black") }}
+			{% endif %}
+        </div>
+        
+        <div class="field">
+			{{ form.description.label(class="label") }}
+			{% if form.description.errors %}
+			{{ form.description(class="textarea is-danger black") }}
+				{% for error in form.description.errors %}
+				<p class="help is-danger">{{ error }}</p>
+				{% endfor %}
+			{% else %}
+			{{ form.description(class="textarea black") }}
+			{% endif %}
+		</div>
+
+	<div class="field mt-5">
+		{{ form.submit(class="button is-fullwidth is-info") }}
+	</div>
+
+</form>
+
+<script>
+
+$(document).ready(function(){
+	$('#title').focus();
+	  $('#text').autosize();
+  });
+
+</script>
+
+{% endblock %}
