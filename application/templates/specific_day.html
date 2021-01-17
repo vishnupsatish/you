@@ -189,10 +189,21 @@
 
                     {% elif entry[2]|string == 'GoalEntry' %}
                     <article class="tile is-child notification {{ entry[1] }}">
-                        <p class="title">{{ entry[0].goal }}</p>
-                        <p class="subtitle">Goal</p>
-
+                        <div class="level">
+                            <div class="level-left">
+                                <p class="title">{{ entry[0].goal }}</p>
+                            </div>
+                            <div class="level-right">
+                                {% if not entry[0].done %}
+                                <a href="{{ url_for('mark_as_done', id=entry[0].id, date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}" class="button is-info">Mark as Done</a>
+                                {% endif %}                            </div>
+                        </div>
+                        {% if entry[0].done %}
+                        <p class="subtitle has-text-success">Goal - Completed</p>
+                        {% else %}
+                        <p class="subtitle has-text-danger">Goal - Not Completed</p>
                         <p class="content">{{ entry[0].steps }}</p>
+                        {% endif %}
                     </article>
 
                     {% elif entry[2]|string == 'MoodEntry' %}
@@ -237,9 +248,22 @@
                     </article>
                     {% elif entry[2]|string == 'GoalEntry' %}
                     <article class="tile is-child notification {{ entry[1] }}">
-                        <p class="title">{{ entry[0].goal }}</p>
-                        <p class="subtitle">Goal</p>
+                        <div class="level">
+                            <div class="level-left">
+                                <p class="title">{{ entry[0].goal }}</p>
+                            </div>
+                            <div class="level-right">
+                                {% if not entry[0].done %}
+                                <a href="{{ url_for('mark_as_done', id=entry[0].id, date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}" class="button is-info">Mark as Done</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if entry[0].done %}
+                        <p class="subtitle has-text-success">Goal - Completed</p>
+                        {% else %}
+                        <p class="subtitle has-text-danger">Goal - Not Completed</p>
                         <p class="content">{{ entry[0].steps }}</p>
+                        {% endif %}
                     </article>
                     {% elif entry[2]|string == 'MoodEntry' %}
                     <article class="tile is-child notification {{ entry[1] }}">

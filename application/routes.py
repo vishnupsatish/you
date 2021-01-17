@@ -437,3 +437,19 @@ def main_event():
         db.session.commit()
         return redirect(url_for('specific_day', year=year, month=month, day=day))
     return render_template('main_event.html', title="Month Event", form=form)
+
+@app.route('/mark_as_done/<int:id>')
+def mark_as_done(id):
+    if not current_user.is_authenticated:
+        abort(404)
+
+    date = request.args.get('date')
+    
+    month, day, year = date.split('/')
+
+    
+    goal = GoalEntry.query.filter_by(id=id, user=current_user).first_or_404()
+    goal.done = True
+    db.session.commit()
+    flash('Goal marked as done. Good job!', 'success')
+    return redirect(url_for('specific_day', year=year, month=month, day=day))

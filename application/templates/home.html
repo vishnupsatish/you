@@ -22,6 +22,9 @@
   {% include 'includes/transparent_navbar.html' %}
 
 
+  <h2 class="title is-2 has-text-centered" style="font-family: 'Great Vibes', cursive;">Hello, {{ current_user.name }}</h2>
+
+
   {% for i in range(years|length) %}
   {% if i % 6 == 0 %}
   <a class="hero background-1 is-bold" href="{{ url_for('months', year=years[i].name) }}">
