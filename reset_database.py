@@ -33,9 +33,6 @@ for d in date_list:
         db.session.add(current_day)
 
 
-user = User(email='a@a.a', name='Aa Aa', password='$2y$12$fHlljwgC0PwI2yn8BStzkOnDDAfGIeeg5Y9bubqIa1ENTc9S0ywE2')
-db.session.add(user)
-
 db.session.commit()
 
 

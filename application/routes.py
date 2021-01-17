@@ -159,8 +159,12 @@ def dashboard():
 
     neg = [d.neg for d in month_diary_entries]
     pos = [d.pos for d in month_diary_entries]
-    negative = sum(neg) / len(neg)
-    positive = sum(pos) / len(pos)
+    try:
+        negative = sum(neg) / len(neg)
+        positive = sum(pos) / len(pos)
+    except ZeroDivisionError:
+        negative = 0
+        positive = 0
 
     score = 3
 
