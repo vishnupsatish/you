@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Hachi+Maru+Pop&family=Indie+Flower&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-
+    {% block head %}{% endblock %}
 
     {% if title %}
     <title>You - {{ title }}</title>
@@ -22,7 +22,6 @@
 <body>
     {% block content %}{% endblock %}
     <script src="{{ url_for('static', filename='main.js') }}"></script>
-
 </body>
 
 </html>

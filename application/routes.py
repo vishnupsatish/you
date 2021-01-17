@@ -1,5 +1,6 @@
 import os
 import secrets
+from random import shuffle
 from datetime import datetime
 from flask import render_template, url_for, flash, redirect, request, abort, session
 from application import app, db, bcrypt, admin
@@ -193,13 +194,31 @@ def specific_day(year, month, day):
 
     print(day)
 
+    diary_entries = DiaryEntry.query.filter_by(user=current_user, day=day)
+    mood_entries = MoodEntry.query.filter_by(user=current_user, day=day)
+    photo_entries = PhotoEntry.query.filter_by(user=current_user, day=day)
+    goal_entries = GoalEntry.query.filter_by(user=current_user, day=day)
+    main_event_entries = MainEventEntry.query.filter_by(user=current_user, day=day)
+
+    all_entries = main_event_entries + mood_entries + photo_entries + goal_entries + diary_entries
+
+    random.shuffle(all_entries)
+
     left_side = []
 
     right_side = []
 
-    
+    for i, entry in enumerate(all_entries):
+        if i % 2 == 0:
+            if i % 6 == 0:
+                left_side.append((entry, 'background-1'))
+        else:
+            right_side.append(entry)
 
 
 
 
-    return render_template('specific_day.html', title="Day", day=day)
+
+
+
+    return render_template('specific_day.html', title="Day", day=day, left_side=left_side, right_side=right_side)
