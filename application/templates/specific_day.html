@@ -3,14 +3,13 @@
 {% block head %}
 
 <style>
-    .hero {
-         transition: all .2s ease-in-out; 
-    }
-    .hero:hover { 
-        padding-left: 70px;
-        transform: scale(1.1);
+    .card {
+        transition: all .2s ease-in-out;
     }
 
+    .card:hover {
+        transform: scale(1.1);
+    }
 </style>
 
 
@@ -19,79 +18,194 @@
 {% block content %}
 
 
-  {% include 'includes/transparent_navbar.html' %}
+{% include 'includes/transparent_navbar.html' %}
 
 
-  <h2 class="title is-2 has-text-centered">{{ day.name }} - {{ day.month.name }} {{ day.date }}, {{ day.month.year.name }}</h2>
+<h2 class="title is-2 has-text-centered"
+    style="font-family: 'Great Vibes', cursive; font-size: 300%; text-align: center;">{{ day.name }} - {{ day.month.name
+    }} {{ day.date }}, {{ day.month.year.name }}</h2>
 
-    <h2 class="title is-4 has-text-centered">New Entry</h2>
+<section class="hero background-3">
+    <div class="hero-body">
+        <div class="container">
 
-    <div class="columns ml-6">
-        <div class="column is-2">
 
-            <a>
-            <div class="card background-2">
-                <h1 class="has-text-centered is-3 title mt-4">Diary</h1>
-                <div class="card-image">
-                    <figure class="image is-4by3">
-                        <img src="https://images.unsplash.com/photo-1594103365930-d95e5a456f51?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Diary image">
-                    </figure>
-                </div>
-                <footer class="card-footer">
-                    <a class="card-footer-item">Add A Diary Entry</a>
-                </footer>
-            </div>
-        </a>
-        </div>
+            <h2 class="title is-4 has-text-centered" style="font-family: 'Cutive Mono', monospace;">New Entry</h2>
 
-            <div class="column is-2">
+            <div class="columns ml-6 mr-6">
+                <div class="column is-2">
 
-                <a>
-                    <div class="card background-1">
-                        <h1 class="has-text-centered is-3 title mt-4">Image</h1>
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="https://images.unsplash.com/photo-1594103365930-d95e5a456f51?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                    alt="Diary image">
-                            </figure>
+                    <a
+                        href="{{ url_for('new_diary_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">
+                        <div class="card background-2">
+                            <h1 class="has-text-centered is-3 title mt-4" style="font-family: 'Lobster', cursive;">Diary
+                            </h1>
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="https://images.unsplash.com/photo-1594103365930-d95e5a456f51?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Diary image">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a class="card-footer-item">Add a Diary Entry</a>
+                            </footer>
                         </div>
-                        <footer class="card-footer">
-                            <a class="card-footer-item">Add A Diary Entry</a>
-                        </footer>
-                    </div>
-                </a>
-
-
-        </div>
-
-        <div class="column is-2">
-            <form method="POST" action="">
-                <div class="field mt-5">
-                    <div class="buttons is-centered">
-                        <button type="submit" class="button" name="5">
-                            <i class="far fa-grin-beam fa-2x" style="color:green;"></i>
-                        </button>
-                        <button type="submit" class="button" name="4">
-                            <i class="far fa-smile fa-2x" style="color:#99cc00;"></i>
-                        </button>
-                        <button type="submit" class="button" name="3">
-                            <i class="far fa-meh fa-2x" style="color:#cccc00;"></i>
-                        </button>
-                        <button type="submit" class="button" name="2">
-                            <i class="far fa-frown fa-2x" style="color:orange;"></i>
-                        </button>
-                        <button type="submit" class="button" name="1">
-                            <i class="far fa-angry fa-2x" style="color:red;"></i>
-                        </button>
-                    </div>
+                    </a>
                 </div>
-            </form>
+
+                <div class="column is-2">
+
+                    <a>
+                        <div class="card background-1">
+                            <h1 class="has-text-centered is-3 title mt-4" style="font-family: 'Lobster', cursive;">Image
+                            </h1>
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="https://cdn.pixabay.com/photo/2016/02/19/11/37/lens-1209823_1280.jpg"
+                                        alt="Diary image">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a class="card-footer-item">Add an image</a>
+                            </footer>
+                        </div>
+                    </a>
+
+
+                </div>
+
+                <div class="column is-6">
+                    <div class="card background-4">
+                        <h3 class="has-text-centered is-3 title mt-4 mb-0"
+                            style="font-family: 'Hachi Maru Pop', cursive;">How are you feeling?</h3>
+
+                        <div class="card-content mt-0">
+                            <form method="POST" action="">
+                                <div class="field">
+                                    <div class="buttons is-centered">
+                                        <button type="submit" class="button" name="5">
+                                            <i class="far fa-grin-beam fa-2x" style="color:green;"></i>
+                                        </button>
+                                        <button type="submit" class="button" name="4">
+                                            <i class="far fa-smile fa-2x" style="color:#99cc00;"></i>
+                                        </button>
+                                        <button type="submit" class="button" name="3">
+                                            <i class="far fa-meh fa-2x" style="color:#cccc00;"></i>
+                                        </button>
+                                        <button type="submit" class="button" name="2">
+                                            <i class="far fa-frown fa-2x" style="color:orange;"></i>
+                                        </button>
+                                        <button type="submit" class="button" name="1">
+                                            <i class="far fa-angry fa-2x" style="color:red;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="column is-2">
+                    <a href="{{ url_for('add_goal_entry') }}">
+                        <div class="card background-5">
+                            <h1 class="has-text-centered is-3 title mt-4" style="font-family: 'Lobster', cursive;">Goal
+                            </h1>
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="https://cdn.pixabay.com/photo/2016/03/09/09/43/person-1245959_1280.jpg"
+                                        alt="Diary image">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="{{ url_for('add_goal_entry') }}" class="card-footer-item">Add a goal</a>
+                            </footer>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <h2 class="title is-4 has-text-centered">Your Entries</h2>
+
+<section class="hero background-2">
+    <div class="hero-body">
+        <div class="container">
+            <h2 class="title is-4 has-text-centered" style="font-family: 'Cutive Mono', monospace;">Your Entries</h2>
+            
 
 
+
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical is-6">
+                  <div class="tile">
+                    <div class="tile is-parent is-vertical">
+                      <article class="tile is-child notification is-primary">
+                        <p class="title">Vertical...</p>
+                        <p class="subtitle">Top tile</p>
+                      </article>
+                      <article class="tile is-child notification is-warning">
+                        <p class="title">...tiles</p>
+                        <p class="subtitle">Bottom tile</p>
+                      </article>
+                    </div>
+                    
+                  </div>
+
+                </div>
+                <div class="tile is-vertical is-parent">
+                  <article class="tile is-child notification is-success">
+                    <div class="content">
+                      <p class="title">Tall tile</p>
+                      <p class="subtitle">With even more content</p>
+                      <div class="content">
+                        <!-- Content -->
+                      </div>
+                    </div>
+                  </article>
+                  <article class="tile is-child notification is-success">
+                    <div class="content">
+                      <p class="title">Tall tile</p>
+                      <p class="subtitle">With even more content</p>
+                      <div class="content">
+                        <!-- Content -->
+                      </div>
+                    </div>
+                  </article>
+                  <article class="tile is-child notification is-success">
+                    <div class="content">
+                      <p class="title">Tall tile</p>
+                      <p class="subtitle">With even more content</p>
+                      <div class="content">
+                        <!-- Content -->
+                      </div>
+                    </div>
+                  </article>
+                
+                </div>
+              </div>
+
+
+
+            <!-- <div class="box">
+                <article class="media">
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                        <br>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div> -->
+
+
+        </div>
+    </div>
+</section>
 
 {% endblock %}

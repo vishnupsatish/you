@@ -2,6 +2,8 @@ from application import db
 from datetime import datetime, timedelta
 from application.models import *
 
+
+db.drop_all()
 db.create_all()
 
 numdays = 18644

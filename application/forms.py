@@ -62,15 +62,14 @@ class LoginForm(FlaskForm):
 
 
 class NewDiaryEntryForm(FlaskForm):
-    date_written = DateField('Date:', validators=[DataRequired()])
     title = StringField('Title:', validators=[DataRequired()])
     text = TextAreaField('Content:', validators=[DataRequired()])
-    submit = SubmitField('Submit')  # change label?
+    favourite = BooleanField('Favourite This Entry')
+    submit = SubmitField('Create')  # change label?
 
 
 class NewGoalForm(FlaskForm):
     goal = StringField('Goal Summary', validators=[DataRequired()])
-    start_date = DateField('Start Date', format="%Y/%m/%d")
     end_date = DateField('End Date', format="%Y/%m/%d")
     steps = TextAreaField('Action Steps')
     submit = SubmitField('Create Goal')
@@ -82,3 +81,5 @@ class NewGoalForm(FlaskForm):
 #     sad = SubmitField('Sad')
 #     very_sad = SubmitField('Very Sad')
     
+
+    # date_written = HiddenField()

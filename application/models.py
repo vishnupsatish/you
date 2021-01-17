@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     diary_entries = db.relationship('DiaryEntry', backref='user', lazy=True)
     mood_entries = db.relationship('MoodEntry', backref='user', lazy=True)
-    google_photos_entries = db.relationship('GooglePhotosEntry', backref='user', lazy=True)
+    photos_entries = db.relationship('PhotosEntry', backref='user', lazy=True)
     main_event_entries = db.relationship('MainEventEntry', backref='user', lazy=True)
     goal_entries = db.relationship('GoalEntry', backref='user', lazy=True)
 
@@ -42,7 +42,7 @@ class Day(db.Model):
     month_id = db.Column(db.Integer, db.ForeignKey('month.id'), nullable=False)
     diary_entries = db.relationship('DiaryEntry', backref='day', lazy=True)
     mood_entries = db.relationship('MoodEntry', backref='day', lazy=True)
-    google_photos_entries = db.relationship('GooglePhotosEntry', backref='day', lazy=True)
+    photos_entries = db.relationship('PhotosEntry', backref='day', lazy=True)
     main_event_entries = db.relationship('MainEventEntry', backref='day', lazy=True)
     goal_entries = db.relationship('GoalEntry', backref='day', lazy=True)
 
@@ -51,6 +51,10 @@ class DiaryEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
+    pos = db.Column(db.Float)
+    neg = db.Column(db.Float)
+    score = db.Column(db.Integer)
+    favourite = db.Column(db.Boolean, default=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -62,7 +66,7 @@ class MoodEntry(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-class GooglePhotosEntry(db.Model):
+class PhotosEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     photo = db.Column(db.String, nullable=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)

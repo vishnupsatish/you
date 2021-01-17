@@ -1,9 +1,8 @@
 import os
 import secrets
-from PIL import Image
-from flask import url_for, current_app
-from flask_mail import Message
-from flaskblog import mail
+from flask import url_for
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import string
 
 
 def save_picture(form_picture):
@@ -18,3 +17,12 @@ def save_picture(form_picture):
     i.save(picture_path)
     
     return picture_fn
+
+def sentiment_analyze(sentiment_text):
+    clean_text = sentiment_text.lower().translate(str.maketrans('', '', string.punctuation))
+    score = SentimentIntensityAnalyzer().polarity_scores(clean_text)
+    negative = score['neg']
+    positive = score['pos']
+    return positive, negative
+
+

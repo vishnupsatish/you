@@ -28,7 +28,7 @@
 
         {% if i % 5 == 0 %}
         <div class="column background-1 is-2">
-        <section class="hero is-bold">
+        <a class="hero is-bold" href="{{ url_for('specific_day', month=days[0].month.name, year=days[0].month.year.name, day=days[i].date) }}">
           <div class="hero-body">
             <div class="container">
               <h1 class="title">
@@ -36,38 +36,38 @@
               </h1>
             </div>
           </div>
-        </section>
+        </a>
     </div>
 
         {% elif i % 5 == 1 %}
         <div class="column background-2 is-2">
 
-        <section class="hero is-bold">
-          <div class="hero-body">
+          <a class="hero is-bold" href="{{ url_for('specific_day', month=days[0].month.name, year=days[0].month.year.name, day=days[i].date) }}">
+            <div class="hero-body">
             <div class="container">
               <h1 class="title">
                 {{ days[i].name }}, the {{ ordinals[i] }}              </h1>
             </div>
           </div>
-        </section>
+        </a>
     </div>
         {% elif i % 5 == 2 %}
         <div class="column background-3 is-2">
 
-        <section class="hero is-bold">
-          <div class="hero-body">
+          <a class="hero is-bold" href="{{ url_for('specific_day', month=days[0].month.name, year=days[0].month.year.name, day=days[i].date) }}">
+            <div class="hero-body">
             <div class="container">
               <h1 class="title">
                 {{ days[i].name }}, the {{ ordinals[i] }}              </h1>
               </h1>
             </div>
           </div>
-        </section>
+        </a>
     </div>
         {% elif i % 5 == 3 %}
         <div class="column background-4 is-2">
 
-        <section class="hero is-bold">
+        <a class="hero is-bold" href="{{ url_for('specific_day', month=days[0].month.name, year=days[0].month.year.name, day=days[i].date) }}">
           <div class="hero-body">
             <div class="container">
               <h1 class="title">
@@ -75,19 +75,19 @@
               </h1>
             </div>
           </div>
-        </section>
+        </a>
     </div>
         {% elif i % 5 == 4 %}
         <div class="column background-5 is-2">
 
-        <section class="hero is-bold">
+        <a class="hero is-bold" href="{{ url_for('specific_day', month=days[0].month.name, year=days[0].month.year.name, day=days[i].date) }}">
           <div class="hero-body">
             <div class="container">
               <h1 class="title">
                 {{ days[i].name }}, the {{ ordinals[i] }}              </h1>
             </div>
           </div>
-        </section>
+        </a>
     </div>
 
       

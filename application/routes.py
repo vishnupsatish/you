@@ -1,11 +1,13 @@
 import os
 import secrets
-from flask import render_template, url_for, flash, redirect, request, abort
+from datetime import datetime
+from flask import render_template, url_for, flash, redirect, request, abort, session
 from application import app, db, bcrypt, admin
 from application.forms import *
 from application.models import *
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_admin.contrib.sqla import ModelView
+from application.utils import *
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Year, db.session))
@@ -13,7 +15,7 @@ admin.add_view(ModelView(Month, db.session))
 admin.add_view(ModelView(Day, db.session))
 admin.add_view(ModelView(DiaryEntry, db.session))
 admin.add_view(ModelView(MoodEntry, db.session))
-admin.add_view(ModelView(GooglePhotosEntry, db.session))
+admin.add_view(ModelView(PhotosEntry, db.session))
 admin.add_view(ModelView(MainEventEntry, db.session))
 admin.add_view(ModelView(GoalEntry, db.session))
 
@@ -109,6 +111,7 @@ def month_summary():
 
 @app.route("/entry_home", methods=["GET", "POST"])
 def entry_home():
+    
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     return render_template('entry_home.html', title="Entry Home")
@@ -122,29 +125,65 @@ def new_diary_entry():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
-    # date = request.args.get('date')
-    # if not date:
-    #     date = 
+    date = request.args.get('date')
+    if not date:
+        today = datetime.today()
+        date = today.strftime('%B/%d/%Y')
+    session['diary_entry_date'] = date
 
     form = NewDiaryEntryForm()
+    
     if form.validate_on_submit():
-        diary_entry = DiaryEntry(title=form.title.data, content=form.text.data)
+        mood_eval = sentiment_analyze(form.text.data)
+        positive = mood_eval[0]
+        negative = mood_eval[1]
+        
+        month, day, year = session['diary_entry_date'].split('/')
+    
+        month_object = Month.query.order_by(Month.number).filter((Month.year.has(name=year)), Month.name==month).first()
+        day = Day.query.filter_by(month=month_object, date=day).first()
+
+    
+        score = 3
+        
+        pos_or_neg = 'Positive' if positive > negative else 'Negative'
+        if positive == negative:
+            pos_or_neg = 'Neutral'
+
+        difference = abs(positive - negative)
+        if positive > negative:
+            if difference > 0.5:
+                score = 5
+            elif difference > 0.2:
+                score = 4
+        elif negative < positive:
+            if difference > 0.5:
+                score = 1
+            elif difference > 0.2:
+                score = 2
+    
+
+        diary_entry = DiaryEntry(title=form.title.data, content=form.text.data, pos=positive, neg=negative, day=day, score=score, user=current_user)
         db.session.add(diary_entry)
         db.session.commit()
         flash("Diary entry created successfully.", "is-success")
-        return redirect(url_for("home"))
+        return redirect(url_for("specific_day", year=year, month=month, day=day.date))
     return render_template('new_diary_entry.html', title="New Diary Entry", form=form)
+
 
 @app.route("/add_goal_entry")
 def add_goal_entry():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     form = NewGoalForm()
+    if form.validate_on_submit():
+        goal = GoalEntry(goal=form.goal.data)
+        
     return render_template('add_goal_entry.html', title="New Goal Entry", form=form)
 
 
 @app.route("/<int:year>/month/<string:month>/day/<int:day>")
-def specfic_day(year, month, day):
+def specific_day(year, month, day):
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
@@ -153,6 +192,14 @@ def specfic_day(year, month, day):
     day = Day.query.filter_by(month=month_object, date=day).first()
 
     print(day)
+
+    left_side = []
+
+    right_side = []
+
+    
+
+
 
 
     return render_template('specific_day.html', title="Day", day=day)
