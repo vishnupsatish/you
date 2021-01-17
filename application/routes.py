@@ -25,6 +25,7 @@ admin.add_view(ModelView(PhotosEntry, db.session))
 admin.add_view(ModelView(MainEventEntry, db.session))
 admin.add_view(ModelView(GoalEntry, db.session))
 
+pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 
 @app.context_processor
 def inject_date():
