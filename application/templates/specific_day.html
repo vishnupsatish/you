@@ -51,8 +51,8 @@
                             </div>
                             <footer class="card-footer">
                                 <a class="card-footer-item"
-                                    href="{{ url_for('new_diary_entry', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">Add
-                                    a Diary Entry</a>
+                                    href="{{ url_for('new_diary_entry_ocr', date=day.month.name + '/' + day.date|string + '/' + day.month.year.name|string) }}">
+                                    NEW: Try Diary OCR</a>
                             </footer>
                         </div>
                     </a>
@@ -167,9 +167,6 @@
         <div class="container">
             <h2 class="title is-4 has-text-centered" style="font-family: 'Cutive Mono', monospace;">Entries from the day
             </h2>
-
-
-
 
             <div class="tile is-ancestor">
                 <div class="tile is-vertical is-parent is-6">

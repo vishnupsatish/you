@@ -64,23 +64,31 @@ class LoginForm(FlaskForm):
 class NewDiaryEntryForm(FlaskForm):
     title = StringField('Title:', validators=[DataRequired()])
     text = TextAreaField('Content:', validators=[DataRequired()])
-    favourite = BooleanField('Favourite This Entry!')
+    favourite = BooleanField('Favourite this entry')
     submit = SubmitField('Create')  # change label?
+
+class NewDiaryEntryOCRForm(FlaskForm):
+    image = FileField('Upload Picture', validators=[FileAllowed(['jpg','png']), DataRequired()])
+    submit = SubmitField('Recognize')  # change label?
 
 
 class NewGoalForm(FlaskForm):
     goal = StringField('Goal Summary', validators=[DataRequired()])
     steps = TextAreaField('Action Steps')
+    favourite = BooleanField('Favourite this entry')
     submit = SubmitField('Create Goal')
+
 
 class NewPictureEntryForm(FlaskForm):
     image = FileField('Upload Picture', validators=[FileAllowed(['jpg','png']), DataRequired()])
     caption = StringField('Caption')
+    favourite = BooleanField('Favourite this entry')
     submit = SubmitField('Create')
     
     
 class MainEventsForm(FlaskForm):
     event = StringField("Event:", validators=[DataRequired()])
     description = TextAreaField("Highlights of the event!", validators=[Length(max=100)])
+    favourite = BooleanField('Favourite this entry')
     submit = SubmitField('Create')
     

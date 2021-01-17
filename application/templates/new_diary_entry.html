@@ -41,9 +41,11 @@
 			placeholder="Write something here!") }}
 			{% endif %}
 		</div>
-		<div class="form-check">
-			{{ form.favourite(class="form-check-input")}}
-			{{ form.favourite.label(class="form-check-label")}}
+        <div class="field">
+			<label class="checkbox">
+                {{ form.favourite }}
+                Favourite this entry
+              </label>
 		</div>
 	</fieldset>
 	<div class="field mt-5">

@@ -2,12 +2,12 @@
 
 {% block bgimage %}
 
-<img src="https://images.unsplash.com/photo-1602524208604-cf16e56f05db?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjZ8fGNhbWVyYXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" class="bg-image">
+<img src="https://cdn.pixabay.com/photo/2018/01/11/21/27/desk-3076954_1280.jpg" alt="" class="bg-image">
 
 {% endblock %}
 
 {% block content %}
-<h1 class="title-custom is-3 black">New Photo Entry</h1>
+<h1 class="title-custom is-3 black">Diary Enter OCR Recognition</h1>
 
 <div class="content-section">
 <form action="" method="POST" enctype="multipart/form-data">
@@ -41,26 +41,8 @@
         </label>
       </div>
     </div>
-    <div class="field">
-        {{ form.caption.label(class="label") }}
-        {% if form.caption.errors %}
-            {{ form.caption(class="input is-medium is-danger") }}
-            <div class="invalid-feedback">
-                {% for error in form.caption.errors %}
-                    <p class="help is-danger">{{ error }}</p>
-                {% endfor %}
-            </div>
-        {% else %}
-            {{ form.caption(class="input is-medium") }}
-        {% endif %}
-    </div>
 </fieldset>
-<div class="field">
-    <label class="checkbox">
-        {{ form.favourite }}
-        Favourite this entry
-      </label>
-</div>
+
 <div class="field mt-5">
     {{ form.submit(class="button is-fullwidth is-info") }}
 </div>

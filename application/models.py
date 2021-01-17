@@ -76,6 +76,7 @@ class PhotosEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     photo = db.Column(db.String, nullable=False)
     caption = db.Column(db.String, nullable=False)
+    favourite = db.Column(db.Boolean, default=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     def __repr__(self):
@@ -85,6 +86,7 @@ class MainEventEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=True)
+    favourite = db.Column(db.Boolean, default=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     def __repr__(self):
@@ -97,6 +99,7 @@ class GoalEntry(db.Model):
     goal = db.Column(db.String, nullable=False)
     steps = db.Column(db.String, nullable=True)
     done = db.Column(db.Boolean, nullable=True)
+    favourite = db.Column(db.Boolean, default=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     def __repr__(self):

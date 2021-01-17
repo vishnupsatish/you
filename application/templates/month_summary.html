@@ -1,105 +1,199 @@
 {% extends "layout.html"%}
 
-{% block content %}
+{% block head %}
+
+
+<style>
+
+    hr {
+        border-color: black;
+        background-color: black;
+    }
+</style>
+
+{% endblock %}
 
 {% block bgimage %}
 
-<img src="https://images.unsplash.com/photo-1496737018672-b1a6be2e949c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1491&q=80" class="bg-image">
+<img src="https://images.unsplash.com/photo-1496737018672-b1a6be2e949c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmVhY2h8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+    class="bg-image">
 
 {% endblock %}
 
-<h1 class="title is-2" style="font-family: 'Great Vibes', cursive; font-size: 300%; text-align: center;">Your Monthly Summary</h1> 
+{% block content %}
+
+
+<h1 class="title is-2" style="font-family: 'Great Vibes', cursive; font-size: 300%; text-align: center;">Your Dashboard</h1>
 <div class="columns">
-    <div class="column is-3" style="background-color: transparent;">
-        <h1 class="title is-4" style="font-family: 'Lobster', cursive;">Stats</h1> <!--change if necessary-->
-        <div class="card">
-            <div class="card-content">
-                        <p class="title is-4" style="font-family: 'Cutive Mono', monospace;">Mood</p>
-                        <p class="subtitle is-6">Your average mood for this month was:</p>
+    <div class="column is-4">
+        <h1 class="title is-4" style="font-family: 'Lobster', cursive; text-align: center;">Stats</h1>
+    </div>
+    <div class="column is-8">
+        <h1 class="title is-4" style="font-family: 'Lobster', cursive; text-align: center;">Goals</h1>
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+    <div class="card">
+        <div class="card-content">
+            <p class="title is-4" style="font-family: 'Cutive Mono', monospace;">Mood</p>
+            <p class="subtitle is-6">Your average mood for this month was:</p>
 
-                <div class="content">
-                    Image of mood emoji goes here.
-                </div>
+            <div class="content">
+
+                    <img src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ score }}_emoji.png"
+                        alt="">
             </div>
         </div>
     </div>
-    <div class="column is-6" style="background-color: transparent;">
-        <h1 class="title is-4" style="font-family: 'Lobster', cursive;">Your Favourite Entries this Month:</h1>
-        <div class="box">
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <p style="font-family: 'Cutive Mono', monospace;">
-                            <strong>Title of Entry</strong> <br><small>Date</small>
-                            <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa
-                            fringilla egestas. Nullam condimentum luctus turpis.
-                        </p>
-                    </div>
-                    
-                </div>
-            </article>
-        </div>
-        <div class="box">
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <p>
-                            <strong>Title of Entry</strong> <br><small>Date</small>
-                            <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa
-                            fringilla egestas. Nullam condimentum luctus turpis.
-                        </p>
-                    </div>
-                    
-                </div>
-            </article>
-        </div>
-        <div class="box">
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <p>
-                            <strong>Title of Entry</strong> <br><small>Date</small>
-                            <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa
-                            fringilla egestas. Nullam condimentum luctus turpis.
-                        </p>
-                    </div>
-                    
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="column is-3" style="background-color: transparent;">
-        <h1 class="title is-4" style="font-family: 'Lobster', cursive;">Goals</h1>
+</div>
+    <div class="column">
         <div class="card">
             <div class="card-content">
-                        <p class="title is-5" style="font-family: 'Cutive Mono', monospace;">Completed</p>
-                        <p class="subtitle is-6">Well done! You reached these goals this month:</p>
+                <p class="title is-5" style="font-family: 'Cutive Mono', monospace;">In-Progress</p>
+                <p class="subtitle is-6">Goals you're working on for the future. You've got this!</p>
 
                 <ul>
-                    <li>1) Goal</li>
-                    <li>2) Goal</li>
-                    <li>3) Goal</li>
+                    {% for i in range(goal_entries|length) %}
+                    {% if not goal_entries[i].done %}
+                    <li>{{i}})&nbsp; {{goal_entries[i].goal}}</li>
+                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
-        <div class="card mt-3">
+    </div>
+    <div class="column">
+        <div class="card">
             <div class="card-content">
-                        <p class="title is-5" style="font-family: 'Cutive Mono', monospace;">In-Progress</p>
-                        <p class="subtitle is-6">Goals you're working on for next month. You've got this!</p>
+                <p class="title is-5" style="font-family: 'Cutive Mono', monospace;">Completed</p>
+                <p class="subtitle is-6">Goals you've completed so far. Great job!</p>
 
                 <ul>
-                    <li>1) Goal</li>
-                    <li>2) Goal</li>
-                    <li>3) Goal</li>
+                    {% for i in range(goal_entries|length) %}
+                    {% if goal_entries[i].done %}
+                    <li>{{i}})&nbsp; {{goal_entries[i].goal}}</li>
+                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
-
     </div>
 </div>
 
-{% endblock %}
+
+<section class="hero background-2">
+    <div class="hero-body">
+        <div class="container">
+            <h2 class="title is-4 has-text-centered" style="font-family: 'Cutive Mono', monospace;">Entries from the day
+            </h2>
+
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical is-parent is-6">
+
+
+                    {% for entry in left_side %}
+                    {% if entry[2]|string == 'DiaryEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].title }}</p>
+                        <p class="subtitle">Diary Entry</p>
+
+                        <p class="content">{{ entry[0].content }}</p>
+                        <hr>
+                        <p class="content">Your mood for the diary entry:</p>
+                        <img height="40px" width="40px"
+                            src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].score }}_emoji.png"
+                            alt="">
+
+                    </article>
+
+                    {% elif entry[2]|string == 'GoalEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].goal }}</p>
+                        <p class="subtitle">Goal</p>
+
+                        <p class="content">{{ entry[0].steps }}</p>
+                    </article>
+
+                    {% elif entry[2]|string == 'MoodEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">Current Mood</p>
+
+                        <p class="content">
+                            <img src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].mood }}_emoji.png"
+                                alt="">
+                        </p>
+                    </article>
+                    {% elif entry[2]|string == 'MainEventEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].content }}</p>
+                        <p class="subtitle">Main Event</p>
+
+                        <p class="content">
+                            {{ entry[0].description }} </p>
+                    </article>
+                    {% endif %}
+
+
+                    {% endfor %}
+
+                </div>
+                <div class="tile is-vertical is-parent">
+
+                    {% for entry in right_side %}
+                    {% if entry[2]|string == 'DiaryEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].title }}</p>
+                        <p class="subtitle">Diary Entry</p>
+
+                        <p class="content">{{ entry[0].content }}</p>
+                        <hr>
+                        <p class="content">Your mood for the diary entry:</p>
+                        <img height="40px" width="40px"
+                            src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].score }}_emoji.png"
+                            alt="">
+
+
+                    </article>
+                    {% elif entry[2]|string == 'GoalEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].goal }}</p>
+                        <p class="subtitle">Goal</p>
+                        <p class="content">{{ entry[0].steps }}</p>
+                    </article>
+                    {% elif entry[2]|string == 'MoodEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">Current Mood</p>
+
+                        <p class="content">
+                            <img src="https://res.cloudinary.com/dnwczwamg/image/upload/you/required/{{ entry[0].mood }}_emoji.png"
+                                alt="">
+                        </p>
+                    </article>
+                    {% elif entry[2]|string == 'MainEventEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <p class="title">{{ entry[0].content }}</p>
+                        <p class="subtitle">Main Event</p>
+
+                        <p class="content">
+                            {{ entry[0].description }} </p>
+                    </article>
+                    {% elif entry[2]|string == 'PhotosEntry' %}
+                    <article class="tile is-child notification {{ entry[1] }}">
+                        <img src="https://res.cloudinary.com/dnwczwamg/image/upload/v1610858360/{{ entry[0].photo }}.jpg" alt="">
+
+                        <p class="content">
+                            {{ entry[0].caption }} </p>
+                    </article>
+                    {% endif %}
+
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %} 
