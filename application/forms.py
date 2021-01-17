@@ -64,14 +64,14 @@ class LoginForm(FlaskForm):
 class NewDiaryEntryForm(FlaskForm):
     title = StringField('Title:', validators=[DataRequired()])
     text = TextAreaField('Content:', validators=[DataRequired()])
-    favourite = BooleanField('Favourite This Entry')
+    favourite = BooleanField('Favourite This Entry!')
     submit = SubmitField('Create')  # change label?
 
 
 class NewGoalForm(FlaskForm):
     goal = StringField('Goal Summary', validators=[DataRequired()])
-    end_date = DateField('End Date', format="%Y/%m/%d")
     steps = TextAreaField('Action Steps')
+    picture = FileField('Update Picture',  validators=[FileAllowed(['jpg','png'])])
     submit = SubmitField('Create Goal')
 
 # class MoodEntryForm(FlaskForm):

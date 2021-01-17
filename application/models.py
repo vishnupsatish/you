@@ -58,6 +58,9 @@ class DiaryEntry(db.Model):
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    def __repr__(self):
+        return 'DiaryEntry'
+
 
 class MoodEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -65,27 +68,34 @@ class MoodEntry(db.Model):
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    def __repr__(self):
+        return 'MoodEntry'
+
 
 class PhotosEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     photo = db.Column(db.String, nullable=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+    def __repr__(self):
+        return 'PhotosEntry'
 
 class MainEventEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    def __repr__(self):
+        return 'MainEventEntry'
 
 
+## MARK AS RESOLVED: BOOLEANB
 class GoalEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     goal = db.Column(db.String, nullable=False)
-    start_date = db.Column(db.DateTime, nullable=True)
-    end_date = db.Column(db.DateTime, nullable=True)
     steps = db.Column(db.String, nullable=True)
     reflection = db.Column(db.String, nullable=True)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    def __repr__(self):
+        return 'GoalEntry'

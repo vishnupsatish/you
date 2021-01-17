@@ -28,13 +28,16 @@
         <div class="navbar-item">
           <div class="field is-grouped">
             <p class="control">
-              <a class="button is-info" href="{{ url_for('entry_home') }}">
+              <a class="button is-info" href="{{ url_for('specific_day', year=every_all_year, month=every_all_month, day=every_all_day) }}">
                 <span class="icon">
                   <i class="fas fa-plus"></i>
                 </span>
                 <span>New Entry</span>
               </a>
             </p>
+            <a class="navbar-item" href="{{ url_for('logout') }}">
+              Logout
+            </a>
           </div>
         </div>
       </div>

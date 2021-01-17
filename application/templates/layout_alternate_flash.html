@@ -24,7 +24,21 @@
 </head>
 
 <body>
+  {% include 'includes/transparent_navbar.html' %}
 
+    <div class="container pt-2">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category, message in messages %}
+          <div class="notification is-{{ category }}">
+            {{ message }}
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+        </div>
+      </div>
   {% block content %}{% endblock %}
 
   <script src="{{ url_for('static', filename='main.js') }}"></script>
