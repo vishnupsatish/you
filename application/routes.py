@@ -453,3 +453,11 @@ def mark_as_done(id):
     db.session.commit()
     flash('Goal marked as done. Good job!', 'success')
     return redirect(url_for('specific_day', year=year, month=month, day=day))
+
+    
+@app.route("/resources")
+def resources():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    return render_template('resources.html')
+    
